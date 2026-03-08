@@ -11,16 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
+import com.example.minercineplex.model.MovieData
 import com.example.minercineplex.screens.*
-import com.example.minercineplex.screens.movies
 
 @Composable
 fun MainScreen() {
 
     val navController = rememberNavController()
+    val movies = MovieData.movies
 
     Scaffold(
+
         containerColor = Color.Black,
+
         bottomBar = {
 
             NavigationBar(
@@ -30,7 +33,6 @@ fun MainScreen() {
                 val currentRoute =
                     navController.currentBackStackEntryAsState().value?.destination?.route
 
-                // 🏠 Home
                 NavigationBarItem(
                     selected = currentRoute == "home",
                     onClick = {
@@ -39,9 +41,7 @@ fun MainScreen() {
                             launchSingleTop = true
                         }
                     },
-                    icon = {
-                        Icon(Icons.Filled.Home, contentDescription = "Home")
-                    },
+                    icon = { Icon(Icons.Filled.Home, null) },
                     label = { Text("Home") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = Color(0xFFFFC107),
@@ -51,7 +51,6 @@ fun MainScreen() {
                     )
                 )
 
-                // 🎬 Theater
                 NavigationBarItem(
                     selected = currentRoute == "theater",
                     onClick = {
@@ -60,9 +59,7 @@ fun MainScreen() {
                             launchSingleTop = true
                         }
                     },
-                    icon = {
-                        Icon(Icons.Filled.LocationOn, contentDescription = "Theater")
-                    },
+                    icon = { Icon(Icons.Filled.LocationOn, null) },
                     label = { Text("Theater") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = Color(0xFFFFC107),
@@ -72,7 +69,6 @@ fun MainScreen() {
                     )
                 )
 
-                // 👤 Profile
                 NavigationBarItem(
                     selected = currentRoute == "profile",
                     onClick = {
@@ -81,9 +77,7 @@ fun MainScreen() {
                             launchSingleTop = true
                         }
                     },
-                    icon = {
-                        Icon(Icons.Filled.Person, contentDescription = "Profile")
-                    },
+                    icon = { Icon(Icons.Filled.Person, null) },
                     label = { Text("Profile") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = Color(0xFFFFC107),
@@ -94,6 +88,7 @@ fun MainScreen() {
                 )
             }
         }
+
     ) { innerPadding ->
 
         NavHost(
@@ -102,31 +97,85 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding)
         ) {
 
-            // 🏠 Home
+            // Home
             composable("home") {
                 HomeScreen(navController)
             }
 
-            // 🎬 Detail (รับ index)
+            // Movie Detail
             composable("detail/{index}") { backStackEntry ->
+
                 val index =
-                    backStackEntry.arguments?.getString("index")?.toInt() ?: 0
+                    backStackEntry.arguments?.getString("index")?.toIntOrNull() ?: 0
+
                 MovieDetailScreen(navController, movies[index])
             }
 
-            // 🎟 Seat
+            // Showtime
+            composable("showtime") {
+                ShowtimeScreen(navController)
+            }
+
+            // Seat
             composable("seat") {
                 SeatScreen(navController)
             }
 
-            // 🎥 Theater
-            composable("theater") {
-                TheaterScreen()
+            // Booking Summary
+            composable("summary/{seats}") { backStackEntry ->
+
+                val seats =
+                    backStackEntry.arguments?.getString("seats") ?: ""
+
+                TicketSummaryScreen(navController, seats)
             }
 
-            // 👤 Profile
+            // Payment
+            composable("payment/{seats}") { backStackEntry ->
+
+                val seats =
+                    backStackEntry.arguments?.getString("seats") ?: ""
+
+                PaymentScreen(navController, seats)
+            }
+
+            // QR Ticket
+            composable("ticket/{seats}") { backStackEntry ->
+
+                val seats =
+                    backStackEntry.arguments?.getString("seats") ?: ""
+
+                TicketScreen(seats)
+            }
+
+            // Theater
+            composable("theater") {
+                TheaterScreen(navController)
+            }
+
+            // Profile
             composable("profile") {
-                ProfileScreen()
+                ProfileScreen(navController)
+            }
+
+            // My Tickets
+            composable("mytickets") {
+                MyTicketsScreen()
+            }
+
+            // Booking History
+            composable("history") {
+                BookingHistoryScreen()
+            }
+
+            // Favorite Movies
+            composable("favorite") {
+                FavoriteMoviesScreen()
+            }
+
+            // Payment Methods
+            composable("paymentmethods") {
+                PaymentMethodsScreen()
             }
         }
     }

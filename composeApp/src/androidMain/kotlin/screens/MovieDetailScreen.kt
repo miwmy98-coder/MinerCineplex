@@ -1,19 +1,18 @@
 package com.example.minercineplex.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.minercineplex.model.Movie
 
 @Composable
 fun MovieDetailScreen(navController: NavController, movie: Movie) {
@@ -28,54 +27,63 @@ fun MovieDetailScreen(navController: NavController, movie: Movie) {
         AsyncImage(
             model = movie.imageUrl,
             contentDescription = movie.title,
-            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(400.dp)
+                .height(420.dp),
+            contentScale = ContentScale.Crop
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Column(modifier = Modifier.padding(16.dp)) {
 
-            Text(movie.title, color = Color.White, style = MaterialTheme.typography.headlineMedium)
-            Spacer(modifier = Modifier.height(8.dp))
+            Text(movie.title, color = Color.White)
 
             Text(
                 "⭐ ${movie.rating} • ${movie.genre} • ${movie.duration}",
                 color = Color.LightGray
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             Button(
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFC107)),
                 onClick = { navController.navigate("seat") }
             ) {
-                Text("🎟 จองตั๋ว", color = Color.Black)
+                Text("🎟 Book Ticket")
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-            Text("เรื่องย่อ", color = Color.White, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(movie.overview, color = Color.LightGray)
+            Button(
+                onClick = {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(movie.trailerUrl)
+                    )
+                    navController.context.startActivity(intent)
+                }
+            ) {
+                Text("▶ Watch Trailer")
+            }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            Text("ผู้กำกับ", color = Color.White, fontWeight = FontWeight.Bold)
-            Text(movie.director, color = Color.LightGray)
+            Text("Overview", color = Color.White)
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Text(movie.overview, color = Color.Gray)
 
-            Text("นักแสดงนำ", color = Color.White, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text("Director", color = Color.White)
+
+            Text(movie.director, color = Color.Gray)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text("Cast", color = Color.White)
 
             movie.cast.forEach {
-                Text("• $it", color = Color.LightGray)
+
+                Text("• $it", color = Color.Gray)
             }
         }
-
-        Spacer(modifier = Modifier.height(80.dp))
     }
 }
