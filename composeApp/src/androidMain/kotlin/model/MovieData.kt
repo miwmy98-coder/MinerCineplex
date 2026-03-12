@@ -1,9 +1,6 @@
 package com.example.minercineplex.model
-
 object MovieData {
-
     val movies = listOf(
-
         Movie(
             id = 1,
             title = "John Wick Chapter 4",
@@ -16,7 +13,6 @@ object MovieData {
             cast = listOf("Keanu Reeves","Donnie Yen","Bill Skarsgård"),
             trailerUrl = "https://www.youtube.com/watch?v=qEVUtrk8_B4"
         ),
-
         Movie(
             id = 2,
             title = "Oppenheimer",
@@ -29,7 +25,6 @@ object MovieData {
             cast = listOf("Cillian Murphy","Robert Downey Jr.","Emily Blunt"),
             trailerUrl = "https://www.youtube.com/watch?v=uYPbbksJxIg"
         ),
-
         Movie(
             id = 3,
             title = "Dune Part Two",
@@ -42,7 +37,6 @@ object MovieData {
             cast = listOf("Timothée Chalamet","Zendaya","Rebecca Ferguson"),
             trailerUrl = "https://www.youtube.com/watch?v=Way9Dexny3w"
         ),
-
         Movie(
             id = 4,
             title = "The Batman",
@@ -55,7 +49,6 @@ object MovieData {
             cast = listOf("Robert Pattinson","Zoë Kravitz","Paul Dano"),
             trailerUrl = "https://www.youtube.com/watch?v=mqqft2x_Aa4"
         ),
-
         Movie(
             id = 5,
             title = "Top Gun Maverick",
@@ -68,7 +61,6 @@ object MovieData {
             cast = listOf("Tom Cruise","Miles Teller","Jennifer Connelly"),
             trailerUrl = "https://www.youtube.com/watch?v=giXco2jaZ_4"
         ),
-
         Movie(
             id = 6,
             title = "Guardians of the Galaxy Vol.3",
@@ -81,7 +73,6 @@ object MovieData {
             cast = listOf("Chris Pratt","Zoe Saldana","Dave Bautista"),
             trailerUrl = "https://www.youtube.com/watch?v=u3V5KDHRQvk"
         ),
-
         Movie(
             id = 7,
             title = "Spider-Man Across the Spider-Verse",
@@ -94,7 +85,6 @@ object MovieData {
             cast = listOf("Shameik Moore","Hailee Steinfeld","Oscar Isaac"),
             trailerUrl = "https://www.youtube.com/watch?v=cqGjhVJWtEg"
         ),
-
         Movie(
             id = 8,
             title = "Mission Impossible Dead Reckoning",
@@ -107,7 +97,6 @@ object MovieData {
             cast = listOf("Tom Cruise","Hayley Atwell","Simon Pegg"),
             trailerUrl = "https://www.youtube.com/watch?v=avz06PDqDbM"
         ),
-
         Movie(
             id = 9,
             title = "Barbie",
@@ -120,7 +109,6 @@ object MovieData {
             cast = listOf("Margot Robbie","Ryan Gosling","Simu Liu"),
             trailerUrl = "https://www.youtube.com/watch?v=pBk4NYhWNMM"
         ),
-
         Movie(
             id = 10,
             title = "The Irishman",
